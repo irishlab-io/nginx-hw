@@ -66,4 +66,3 @@ repos:
         args:
           - -c
           - .config/.yaml-lint.yml
-

@@ -17,20 +17,42 @@ jobs:
   secret:
     name: Call Secret Scanning
     uses: irishlab-io/admin/.github/workflows/reusable-secret.yml@main
+
     secrets: inherit
 
   pre-commit:
-    needs:
-      - secret
     name: Call Pre-Commit for private repo
     uses: irishlab-io/admin/.github/workflows/reusable-pre-commit.yml@main
 
+    needs:
+      - secret
+
   hello-world:
+    name: Call Hello World
+    uses: irishlab-io/admin/.github/workflows/reusable-hello-world.yml@main
+
     needs:
       - pre-commit
       - secret
-    name: Call Hello World
-    uses: irishlab-io/admin/.github/workflows/reusable-hello-world.yml@main
+
     with:
       comments: "4321tset"
       enable: false
+
+  docker-build:
+    name: Call Docker Build
+    uses: irishlab-io/admin/.github/workflows/reusable-docker-build.yml@main
+
+    needs:
+      - pre-commit
+      - secret
+
+    permissions:
+      contents: read
+      packages: write
+      pull-requests: write
+
+    with:
+      context: "./docker/"
+      image-names: |
+        ghcr.io/${{ github.repository }}
