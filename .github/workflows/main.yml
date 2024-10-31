@@ -19,8 +19,16 @@ jobs:
     uses: irishlab-io/admin/.github/workflows/reusable-secret.yml@main
     secrets: inherit
 
+
+  pre-commit:
+    needs:
+      - secret
+    name: Call Pre-Commit for private repo
+    uses: irishlab-io/admin/.github/workflows/reusable-pre-commit.yml@main
+
   hello-world:
     needs:
+      - pre-commit
       - secret
     name: Call Hello World
     uses: irishlab-io/admin/.github/workflows/reusable-hello-world.yml@main
