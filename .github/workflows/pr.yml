@@ -34,3 +34,13 @@ jobs:
     with:
       comments: "4321tset"
       enable: false
+
+  docker-build:
+    needs:
+      - pre-commit
+      - secret
+    name: Call Hello World
+    uses: irishlab-io/admin/.github/workflows/reusable-docker-build.yml@main
+    with:
+      context: "docker/"
+      file: "Dockerfile"
