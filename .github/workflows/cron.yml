@@ -1,12 +1,9 @@
 ---
-name: Continous Integration - Pull Request
+name: Continous Integration - Cron
 
 on: # yamllint disable-line rule:truthy
-  pull_request:
-    branches:
-      - main
-    paths-ignore:
-      - 'README.md'
+  schedule:
+    - cron: '0 */6 * * *'
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -54,5 +51,11 @@ jobs:
 
     with:
       context: "./docker/"
+      tag-rules: |
+        type=raw,value=gha-${{ github.run_id }},enable=${{github.event_name == 'pull_request'}},priority=200
+        type=raw,value=nightly,enable={{is_default_branch}},priority=100
+        type=raw,value=stable-{{date 'YYYYMMDD'}}-{{sha}},enable={{is_default_branch}},priority=300
+        type=ref,event=pr,priority=100
+        type=ref,event=tag,priority=200
       image-names: |
         ghcr.io/${{ github.repository }}
