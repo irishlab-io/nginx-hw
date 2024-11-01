@@ -55,18 +55,3 @@ jobs:
 
     with:
       context: "./docker/"
-
-  scan-image:
-    name: Call Trivy Image Scan 
-    uses: irishlab-io/admin/.github/workflows/reusable-image-scan.yml@main
-
-    needs:
-      - docker-build-push
-
-    permissions: read-all
-
-    with:
-      image: "ghcr.io/irishlab-io/nginx-hw:latest" #need to fix this
-      # exit-code: 1
-      # severity: "LOW,MEDIUM,HIGH,CRITICAL"
-      # ignore-unfixed: false
