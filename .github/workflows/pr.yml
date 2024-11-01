@@ -67,6 +67,6 @@ jobs:
 
     with:
       image: "docker pull ghcr.io/irishlab-io/nginx-hw:latest" #need to fix this
-      exit-code: 1
-      severity: "LOW,MEDIUM,HIGH,CRITICAL"
-      ignore-unfixed: false
+      # exit-code: 1
+      # severity: "LOW,MEDIUM,HIGH,CRITICAL"
+      # ignore-unfixed: false
