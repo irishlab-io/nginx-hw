@@ -21,3 +21,5 @@ Continuous integration (CI) is a process in which developers continually commit 
 ### Continous Delivery  (CD)
 
 Continuous delivery (CD) extends CI by automatically deploying all code changes to a QA and/or production environment after the build stage. This ensures that you can release new changes to your customers quickly and sustainably. This practice helps developers automate the deployment process, minimize bugs in production, and increase the speed of software releases.
+
+---
