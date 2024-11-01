@@ -57,17 +57,13 @@ jobs:
       context: "./docker/"
 
   scan-image:
-    name: Call Image Scan 
+    name: Call Trivy Image Scan 
     uses: irishlab-io/admin/.github/workflows/reusable-image-scan.yml@main
 
     needs:
       - docker-build-push
 
     permissions: read-all
-
-    secrets:
-      registry-username: ${{ github.actor }}
-      registry-password: ${{ secrets.GITHUB_TOKEN }}
 
     with:
       image: "docker pull ghcr.io/irishlab-io/nginx-hw:latest" #need to fix this
