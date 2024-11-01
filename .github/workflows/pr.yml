@@ -40,7 +40,7 @@ jobs:
       comments: "4321tset"
       enable: false
 
-  docker-build:
+  docker-build-push:
     name: Call Docker Build
     uses: irishlab-io/admin/.github/workflows/reusable-docker-build.yml@main
 
@@ -55,5 +55,18 @@ jobs:
 
     with:
       context: "./docker/"
-      image-names: |
-        ghcr.io/${{ github.repository }}
+
+  scan-image:
+    name: Call Image Scan 
+    uses: irishlab-io/admin/.github/workflows/reusable-image-scan.yml@main
+
+    needs:
+      - docker-build-push
+
+    permissions: read-all
+
+    with:
+      image: "docker pull ghcr.io/irishlab-io/nginx-hw:latest" #need to fix this
+      exit-code: 1
+      severity: "LOW,MEDIUM,HIGH,CRITICAL"
+      ignore-unfixed: false
